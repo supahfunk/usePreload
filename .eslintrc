@@ -1,0 +1,58 @@
+{
+  "extends": ["airbnb"],
+  "plugins": ["react", "react-memo"],
+  "rules": {
+    "no-undef": "off",
+    "no-console": "off",
+    "disable-next-line": "off",
+    "space-before-function-paren": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/destructuring-assignment": "off",
+    "react/button-has-type": "off",
+    "react/prefer-stateless-function": "warn",
+    "react/no-access-state-in-setstate": "off",
+    "react/jsx-no-target-blank": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-undef": [2, { "allowGlobals": true }],
+    "react/function-component-definition": "off",
+    "react/no-unknown-property": "off",
+    "linebreak-style": "off",
+    "global-require": "off",
+    "arrow-body-style": "off",
+    "consistent-return": "off",
+    "semi": [2, "never"],
+    "max-len": "off",
+    "object-curly-newline": "off",
+    "no-return-assign": "off",
+    "dot-notation": "off",
+    "no-unexpected-multiline": 2,
+    "no-param-reassign": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/forbid-prop-types": "off",
+    "react/prop-types": "off",
+    "react/jsx-boolean-value": "off",
+    "react/no-danger": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/alt-text": "off",
+    "jsx-a11y/anchor-is-valid": [ "error", {
+        "components": [ "Link" ],
+        "specialLink": [ "to", "hrefLeft", "hrefRight" ],
+        "aspects": [ "invalidHref", "preferButton" ]
+      }],
+    "import/prefer-default-export": "off",
+    "camelcase": "off",
+    "new-cap": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "extensions": [".js", ".jsx"],
+        "map": [
+          ["@", "./src"]
+        ]
+      }
+    }
+  }
+}
