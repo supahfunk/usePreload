@@ -10,7 +10,7 @@ const usePreload = ({
     if (!init) return
 
     async function fetchData() {
-      const promisesDomElements = await Array.from(dom).map((el) => {
+      const promisesDomElements = Array.from(dom).map((el) => {
         return new Promise((resolve, reject) => {
           const { src } = el.dataset
           if (el.tagName.toLowerCase() === 'img') {
@@ -26,16 +26,20 @@ const usePreload = ({
           if (el.tagName.toLowerCase() === 'video') {
             const video = document.createElement('video')
             video.src = src
+            video.load()
             video.setAttribute('preload', 'auto')
+            video.play()
             video.addEventListener('canplaythrough', () => {
               el.src = src
+              el.load()
               resolve()
+              video.pause()
             })
           }
         })
       })
 
-      const promisesSources = await sources.map(({ src, cb: callback }) => {
+      const promisesSources = sources.map(({ src, cb: callback }) => {
         return new Promise((resolve, reject) => {
           const req = new XMLHttpRequest()
           req.open('GET', src, true)
