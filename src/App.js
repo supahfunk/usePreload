@@ -4,7 +4,6 @@ import './style.css'
 
 export default function App() {
   const [isDataReady, setDataReady] = useState(false)
-  const [isPageReady, setPageReady] = useState(false)
   const $root = useRef()
   const $video = useRef()
 
@@ -15,9 +14,9 @@ export default function App() {
     }, 1000)
   }, [])
 
-  usePreload({
+  const isPageReady = usePreload({
     init: isDataReady,
-    dom: $root.current && $root.current.querySelectorAll('[data-preload]'),
+    selector: '[data-preload]',
     sources: [
       {
         src: 'https://api.codetabs.com/v1/proxy/?quest=https://file-examples.com/storage/fe4b4c6261634c76e91986b/2017/04/file_example_MP4_480_1_5MG.mp4',
@@ -29,8 +28,6 @@ export default function App() {
       },
     ],
     cb: () => {
-      setPageReady(true)
-      console.log('Page Loaded!')
     },
   })
 
