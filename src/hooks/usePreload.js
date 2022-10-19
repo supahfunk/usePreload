@@ -20,7 +20,6 @@ const usePreload = ({
           img.src = src
           img.onload = () => {
             el.src = src
-            el.removeAttribute('data-preload')
             el.removeAttribute('data-src')
             resolve()
           }
@@ -37,7 +36,6 @@ const usePreload = ({
           video.addEventListener('canplaythrough', () => {
             el.src = src
             el.load()
-            el.removeAttribute('data-preload')
             el.removeAttribute('data-src')
             resolve()
           })
@@ -82,7 +80,6 @@ const usePreload = ({
     const domElements = document.querySelectorAll(selector)
     domElements.forEach((el) => {
       el.src = el.dataset.src
-      el.removeAttribute('data-preload')
       el.removeAttribute('data-src')
     })
   }
