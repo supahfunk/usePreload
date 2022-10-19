@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { useMedia } from 'react-use'
 import usePreload from './hooks/usePreload'
 import './style.css'
 
@@ -6,6 +7,8 @@ export default function App() {
   const [isDataReady, setDataReady] = useState(false)
   const $root = useRef()
   const $video = useRef()
+
+  const isWide = useMedia('(min-width: 480px)')
 
   // Fake Data
   useEffect(() => {
@@ -20,16 +23,29 @@ export default function App() {
     sources: [
       {
         src: 'https://api.codetabs.com/v1/proxy/?quest=https://file-examples.com/storage/fe4b4c6261634c76e91986b/2017/04/file_example_MP4_480_1_5MG.mp4',
-        cb: (url) => {
+        callback: (url) => {
           console.log('Url inside sources loaded ---->', url)
           $video.current.src = url
           $video.current.play()
         },
       },
+      {
+        src: 'https://api.codetabs.com/v1/proxy/?quest=https://filesamples.com/samples/image/hdr/sample_640%C3%97426.hdr',
+        callback: (url) => {
+          console.log('XHR inside sources loaded ---->', url)
+        },
+      },
     ],
-    cb: () => {
-    },
+    callback: () => {},
   })
+
+  useEffect(() => {
+    console.log('isPageReady ---->', isPageReady)
+  }, [isPageReady])
+
+  useEffect(() => {
+    console.log('isWide ---->', isWide)
+  }, [isWide])
 
   return (
     <div className="App" ref={$root}>
@@ -50,6 +66,8 @@ export default function App() {
           />
         </div>
         <div className="item">
+          {isWide
+          && (
           <img
             data-preload
             data-src="https://images.unsplash.com/photo-1665973250579-094c6bc6257c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4031&q=80"
@@ -59,6 +77,7 @@ export default function App() {
             src=""
             alt="skate"
           />
+          )}
         </div>
         <div className="item">
           <img
