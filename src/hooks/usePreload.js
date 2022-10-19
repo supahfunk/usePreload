@@ -9,12 +9,23 @@ const usePreload = ({
 }) => {
   const [ready, setReady] = useState(false)
 
+  const addSrc = () => {
+    const domElements = document.querySelectorAll(selector)
+    domElements.forEach((el) => {
+      if (el.dataset.src) {
+        el.src = el.dataset.src
+        el.removeAttribute('data-src')
+      }
+    })
+  }
+
   async function fetchData() {
     const domElements = document.querySelectorAll(selector)
-
     const promisesDomElements = Array.from(domElements).map((el) => {
       return new Promise((resolve, reject) => {
         const { src } = el.dataset
+        if (!src) return
+
         if (el.tagName.toLowerCase() === 'img') {
           const img = new Image()
           img.src = src
@@ -72,22 +83,14 @@ const usePreload = ({
       (res) => {
         callback(res)
         setReady(true)
+        useResize(addSrc)
       },
     )
-  }
-
-  const addSrc = () => {
-    const domElements = document.querySelectorAll(selector)
-    domElements.forEach((el) => {
-      el.src = el.dataset.src
-      el.removeAttribute('data-src')
-    })
   }
 
   useEffect(() => {
     if (!init || typeof window === 'undefined') return
     fetchData()
-    useResize(addSrc)
   }, [init])
 
   return ready

@@ -6,9 +6,9 @@ import './style.css'
 export default function App() {
   const [isDataReady, setDataReady] = useState(false)
   const $root = useRef()
-  const $video = useRef()
+  const [videoXHRSrc, setVideoXHRSrc] = useState(null)
 
-  const isWide = useMedia('(min-width: 480px)')
+  const isWide = useMedia('(min-width: 768px)')
 
   // Fake Data
   useEffect(() => {
@@ -25,8 +25,7 @@ export default function App() {
         src: 'https://api.codetabs.com/v1/proxy/?quest=https://file-examples.com/storage/fe4b4c6261634c76e91986b/2017/04/file_example_MP4_480_1_5MG.mp4',
         callback: (url) => {
           console.log('Url inside sources loaded ---->', url)
-          $video.current.src = url
-          $video.current.play()
+          setVideoXHRSrc(url)
         },
       },
       {
@@ -75,7 +74,7 @@ export default function App() {
               console.log('Dom Image 1 loaded ---->', e.target)
             }}
             src=""
-            alt="skate"
+            alt=""
           />
           )}
         </div>
@@ -87,17 +86,19 @@ export default function App() {
               console.log('Dom Image 2 loaded ---->', e.target)
             }}
             src=""
-            alt="landscape"
+            alt=""
           />
         </div>
         <div className="item">
+          {isWide && (
           <video
-            ref={$video}
             autoPlay={true}
             muted={true}
             playsInline={true}
             loop={true}
+            src={videoXHRSrc}
           />
+          )}
         </div>
       </div>
     </div>
